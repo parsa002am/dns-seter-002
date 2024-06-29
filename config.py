@@ -1,5 +1,5 @@
 import os
-from core.Querys import DNSQuery
+from core.Query import DNSQuery
 
 DATA_FOLDER = 'DNS002'
 if not os.path.exists(DATA_FOLDER):
@@ -7,7 +7,7 @@ if not os.path.exists(DATA_FOLDER):
 
 file_name = f'{DATA_FOLDER}/002DNS.txt'
 
-DEFUALT_DNS = [
+DEFAULT_DNS = [
     {
         'name': '403.ONLINE ',
         'primary_dns': '10.202.10.202',
@@ -40,9 +40,9 @@ DEFUALT_DNS = [
 if not os.path.isfile(file_name):
     try:
         print('welcome to 002 DNS\n\n Coded by parsa002am@gmail.com')
-        DNSQuery().add_DNS_bulk(DEFUALT_DNS)
+        DNSQuery().add_DNS_bulk(DEFAULT_DNS)
         with open(file_name,'w') as file:
-                file.write('Coded by parsa002 \n email: parsa002am@gmail.com \n telegram: http://t.me/parsa002am \n dont try for remove it !')
+                file.write('Coded by Parsa002 \n email: parsa002am@gmail.com \n telegram: http://t.me/parsa002am \n dont try for remove it !')
         
     except:
         print('have some error')
