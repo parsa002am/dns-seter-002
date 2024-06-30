@@ -15,12 +15,13 @@ def set_dns_option(option):
     if not is_admin():
         return {'success':False , 'code' : '500' , 'msg':"The application is NOT running with administrative privileges."}
 
-    try:
-        dns = DNSQuery().get_id(option)
-        primary_dns= dns.dns_primary 
-        secondary_dns = dns.dns_secondary
-    except:
-        return {'success':False , 'code' : '400' , 'msg':'Invalid DNS selected'}
+    if(option != 0):
+        try:
+            dns = DNSQuery().get_id(option)
+            primary_dns= dns.primary_dns
+            secondary_dns = dns.secondary_dns
+        except:
+            return {'success':False , 'code' : '400' , 'msg':'Invalid DNS selected'}
     
     system = platform.system()
     if system == 'Windows':   

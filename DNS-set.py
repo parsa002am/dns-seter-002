@@ -32,13 +32,13 @@ def main():
             if result['success'] is True:
                 print(result['msg'])
             else :
-                if result['code'] == 400 :
+                if result['code'] == '400' :
                     print(result['msg'])
                     print('please try again!')
                     continue
-                elif result['code'] == 500:
-                    input(result['msg'])
-                    exit(1)
+                elif result['code'] == '500':
+                    input(result['msg'] + ' Press enter for exit .')
+                    exit()
         else :
             try:
                 result = setup_dns(option)
@@ -47,13 +47,15 @@ def main():
             if result['success'] is True:
                 print(result['msg'])
             else :
-                if result['code'] == 400 :
+                if result['code'] == '400' :
                     print(result['msg'])
                     print('please try again!')
                     continue
-                elif result['code'] == 500:
-                    input(result['msg'])
-                    exit(1)
+                elif result['code'] == '500':
+                    input(result['msg'] + ' Press enter for exit .')
+                    exit()
 
 if __name__ == "__main__":
+
+
     main()

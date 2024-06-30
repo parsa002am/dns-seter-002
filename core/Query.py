@@ -19,7 +19,7 @@ class DNSQuery:
             self.session.close()
     def get_id(self , input_id):
         try:
-            return self.session.query(DNS).get(id=input_id)
+            return self.session.query(DNS).filter_by(id=input_id).first()
         finally:
             self.session.close()
     
