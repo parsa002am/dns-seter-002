@@ -15,8 +15,8 @@ DEFAULT_DNS = [
     },
     {
         'name': 'shecan',
-        'primary_dns': '10.202.10.202',
-        'secondary_dns' : '10.202.10.102'
+        'primary_dns': '178.22.122.100',
+        'secondary_dns' : '185.51.200.2'
     },
     {
         'name': 'beshkan',
