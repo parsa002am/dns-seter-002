@@ -1,0 +1,85 @@
+name: Build Applications
+
+on: [push]
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Build with PyInstaller
+      run: |
+        pyinstaller --onefile --name dns-set DNS-set.py
+    - name: List dist contents
+      run: |
+        dir dist
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: windows-app
+        path: dist/*
+
+  build-linux:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Build with PyInstaller
+      run: |
+        pyinstaller --onefile --name dns-set DNS-set.py
+    - name: List dist contents
+      run: |
+        ls -l dist
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: linux-app
+        path: dist/*
+
+  build-macos:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Build with PyInstaller
+      run: |
+        pyinstaller --onefile --name dns-set DNS-set.py
+    - name: Install create-dmg
+      run: |
+        brew install create-dmg
+    - name: Create DMG file
+      run: |
+        create-dmg --volname "dns-set" --window-pos 200 120 --window-size 800 400 --icon-size 100 --icon "dns-set" 200 190 --hide-extension "dns-set" --app-drop-link 600 185 "dist/dns-set.dmg" "dist/"
+    - name: List dist contents
+      run: |
+        ls -l dist
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: macos-app
+        path: dist/*
