@@ -18,12 +18,15 @@ jobs:
         pip install -r requirements.txt
     - name: Build with PyInstaller
       run: |
-        pyinstaller --onefile DNS-set.py
+        pyinstaller --onefile --name dns-set DNS-set.py
+    - name: List dist contents
+      run: |
+        dir dist
     - name: Upload artifact
       uses: actions/upload-artifact@v2
       with:
         name: windows-app
-        path: dist/
+        path: dist/*
 
   build-linux:
     runs-on: ubuntu-latest
@@ -40,12 +43,15 @@ jobs:
         pip install -r requirements.txt
     - name: Build with PyInstaller
       run: |
-        pyinstaller --onefile DNS-set.py
+        pyinstaller --onefile --name dns-set DNS-set.py
+    - name: List dist contents
+      run: |
+        ls -l dist
     - name: Upload artifact
       uses: actions/upload-artifact@v2
       with:
         name: linux-app
-        path: dist/
+        path: dist/*
 
   build-macos:
     runs-on: macos-latest
@@ -62,9 +68,15 @@ jobs:
         pip install -r requirements.txt
     - name: Build with PyInstaller
       run: |
-        pyinstaller --onefile DNS-set.py
+        pyinstaller --onefile --name dns-set DNS-set.py
+    - name: Make the binary executable
+      run: |
+        chmod +x dist/dns-set
+    - name: List dist contents
+      run: |
+        ls -l dist
     - name: Upload artifact
       uses: actions/upload-artifact@v2
       with:
         name: macos-app
-        path: dist/
+        path: dist/*
