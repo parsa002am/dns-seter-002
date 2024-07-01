@@ -29,7 +29,7 @@ def install_network_manager():
         subprocess.run(['sudo', 'apt-get', 'install', '-y', 'network-manager'], check=True)
         return True
     except subprocess.CalledProcessError as e:
-        print(f"خطا در نصب NetworkManager: {e}")
+        print(f"Error installing NetworkManager:: {e}")
         return False
 
 def get_connection_name():
@@ -77,7 +77,7 @@ def set_dns_option(option):
             subprocess.run(['nmcli', 'con', 'up', connection_name ])
             return {'success': True, 'msg': "DNS servers reset for Linux."}
         else:
-            dns_addresses = f"{primary_dns},{secondary_dns}"
+            dns_addresses = f"{primary_dns} {secondary_dns}"
             subprocess.run(['nmcli', 'con', 'mod', connection_name , 'ipv4.dns', dns_addresses])
             subprocess.run(['nmcli', 'con', 'mod', connection_name , 'ipv4.ignore-auto-dns', 'yes'])
             subprocess.run(['nmcli', 'con', 'up', connection_name ])
