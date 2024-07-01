@@ -25,12 +25,20 @@ _درحال حاضر  از windows ، linux ، macOS  ساپورت میشود_
 💢 برنامه به صورت ادمین اجرا شود در تمامی سیستم عامل ها 💢
 
 ### linux : 
-```chmod +x dns-set```
-```sudo dns-set```
+
+````
+chmod +x dns-set
+````
+
+```
+sudo dns-set
+```
 
 
 ### MacOS
-```sudo dns-set```
+```
+sudo dns-set
+```
 
 ---
 # Coded by parsa momtazi nejad
