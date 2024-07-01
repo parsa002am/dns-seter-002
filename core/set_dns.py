@@ -78,7 +78,8 @@ def set_dns_option(option):
             return {'success': True, 'msg': "DNS servers reset for Linux."}
         else:
             # dns_addresses = f"{primary_dns} {secondary_dns}" #"10.1.1.1 1.1.1.1"
-            subprocess.run(['nmcli', 'con', 'mod', connection_name , 'ipv4.dns', primary_dns , secondary_dns])
+            subprocess.run(['nmcli', 'con', 'mod', connection_name , 'ipv4.dns', primary_dns])
+            subprocess.run(['nmcli', 'con', 'mod', connection_name, '+ipv4.dns', secondary_dns])
             subprocess.run(['nmcli', 'con', 'mod', connection_name , 'ipv4.ignore-auto-dns', 'yes'])
             subprocess.run(['nmcli', 'con', 'up', connection_name ])
             return {'success': True, 'msg': f"Primary DNS set to {primary_dns} and Secondary DNS set to {secondary_dns} for Linux."}
