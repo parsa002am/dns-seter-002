@@ -9,7 +9,7 @@ class DNSQuery:
     def add_DNS_bulk(self, dnss=[]):
         try:
             
-            new_dnss = [DNS(name=dns['name'] , primary_dns=dns['primary_dns'] , secondary_dns = dns['primary_dns']) for dns in dnss]
+            new_dnss = [DNS(name=dns['name'] , primary_dns=dns['primary_dns'] , secondary_dns = dns['secondary_dns']) for dns in dnss]
             self.session.bulk_save_objects(new_dnss)
             self.session.commit()
         except Exception as e:

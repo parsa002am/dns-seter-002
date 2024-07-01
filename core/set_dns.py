@@ -83,5 +83,21 @@ def set_dns_option(option):
             subprocess.run(['nmcli', 'con', 'mod', connection_name , 'ipv4.ignore-auto-dns', 'yes'])
             subprocess.run(['nmcli', 'con', 'up', connection_name ])
             return {'success': True, 'msg': f"Primary DNS set to {primary_dns} and Secondary DNS set to {secondary_dns} for Linux."}
+    elif system == 'Darwin':  # macOS
+        try:
+            result = subprocess.run(['networksetup', '-listallnetworkservices'], capture_output=True, text=True)
+            services = result.stdout.strip().split('\n')
+            services = [service for service in services if not service.startswith('*') and service != '']
+        except Exception as e:
+            return {'success': False, 'code': '500', 'msg': f"Error getting network services: {e}"}
+
+        if option == 0:
+            for service in services:
+                subprocess.run(['networksetup', '-setdnsservers', service, 'Empty'])
+            return {'success': True, 'msg': "DNS servers reset for macOS."}
+        else:
+            for service in services:
+                subprocess.run(['networksetup', '-setdnsservers', service, primary_dns, secondary_dns])
+            return {'success': True, 'msg': f"Primary DNS set to {primary_dns} and Secondary DNS set to {secondary_dns} for macOS."}
     else:
         return {'success': False, 'code': '500', 'msg': "Unsupported operating system."}
