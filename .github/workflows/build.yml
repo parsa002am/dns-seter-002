@@ -69,9 +69,12 @@ jobs:
     - name: Build with PyInstaller
       run: |
         pyinstaller --onefile --name dns-set DNS-set.py
-    - name: Make the binary executable
+    - name: Install create-dmg
       run: |
-        chmod +x dist/dns-set
+        brew install create-dmg
+    - name: Create DMG file
+      run: |
+        create-dmg --volname "dns-set" --window-pos 200 120 --window-size 800 400 --icon-size 100 --icon "dns-set" 200 190 --hide-extension "dns-set" --app-drop-link 600 185 "dist/dns-set.dmg" "dist/"
     - name: List dist contents
       run: |
         ls -l dist
